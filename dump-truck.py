@@ -1,8 +1,10 @@
 import random
 import pandas as pd
+import numpy as np
 
 # Set random seed for reproducibility.
 random.seed(42)
+rng = np.random.default_rng(42)
 
 
 # Define the probabilistic distributions.
@@ -15,11 +17,13 @@ def get_weighing_time():
 
 
 def get_travel_time():
-    return random.choice(list(range(8, 16)))
+    mean = 12
+    std_dev = 1
+    return rng.normal(mean, std_dev)
 
 
 def get_initial_arrival_times():
-    arrival_times = random.sample(range(0, 9), 6)
+    arrival_times = [0, 0, 0, 0, 0, 0]
     trucks = ['DT1', 'DT2', 'DT3', 'DT4', 'DT5', 'DT6']
     return dict(zip(trucks, sorted(arrival_times)))
 
