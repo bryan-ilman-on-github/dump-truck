@@ -1,33 +1,25 @@
 import random
 import pandas as pd
-import numpy as np
 
 # Set random seed for reproducibility.
 random.seed(42)
-rng = np.random.default_rng(42)
+
 
 # Define the probabilistic distributions.
 def get_loading_time():
-    #return random.choice([2, 3, 4])
-    # distribusi normal
-    mean = 3
-    std_dev = 1
-    return rng.normal(mean, std_dev)
+    return random.choice([2, 3, 4])
+
 
 def get_weighing_time():
     return random.choice([1, 2])
 
 
 def get_travel_time():
-    #return random.choice(list(range(8, 16)))
-    mean = 12
-    std_dev = 1
-    return rng.normal(mean, std_dev)
+    return random.choice(list(range(8, 16)))
 
 
 def get_initial_arrival_times():
-    #arrival_times = random.sample(range(0, 9), 6)
-    arrival_times = [0 * 6]
+    arrival_times = random.sample(range(0, 9), 6)
     trucks = ['DT1', 'DT2', 'DT3', 'DT4', 'DT5', 'DT6']
     return dict(zip(trucks, sorted(arrival_times)))
 
@@ -62,14 +54,13 @@ for truck, arrival_time in arrival_times.items():
         'Truck ID': truck
     })
 
-running_time = 0
 # Simulation loop.
 while len(event_list) > 0 and time < 100:  # Arbitrary simulation end time.
     # Sort events by time.
     event_list.sort(key=lambda x: x['Time'])
     # Get next event.
     event = event_list.pop(0)
-    running_time = time = event['Time']
+    time = event['Time']
     truck_id = event['Truck ID']
     event_type = event['Event']
 
@@ -157,6 +148,3 @@ df.replace('', None, inplace=True)
 
 # Display the table.
 print(df.to_string(index=False))
-
-print("Loader utils", loading_time / 2.0 / running_time)
-print("Scale utils", weighing_time / running_time)
